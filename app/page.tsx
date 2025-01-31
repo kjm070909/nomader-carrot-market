@@ -5,16 +5,7 @@ import { createAccount } from "./actions"
 
 export default function Home() {
   const [state,action] = useFormState(createAccount,null)
-  function checkresult() {
-    console.log(state?.fieldErrors.email,state?.fieldErrors.password?.length,state?.fieldErrors.username?.length)
-    console.log(state)
-    if(state?.fieldErrors.email?.length === 0 && state?.fieldErrors.password?.length === 0 && state?.fieldErrors.username?.length === 0 )
 
-      return true
-    else{
-      return false
-    }
-  }
   return(
     <div className="m-auto mt-6 h-[100vh] w-[100vh] text-center justify-center ">
       <h1 className="text-[24px] font-semibold ">Login</h1>
