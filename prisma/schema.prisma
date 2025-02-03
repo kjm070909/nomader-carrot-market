@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model User {
+  username String @unique
+  password String @unique
+  email String? @unique
+  bio String @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime  @updatedAt
+
+  Tweet Tweet[]
+
+  Like Like[]
+}
+
+model Tweet {
+  tweet String @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user User @relation(fields: [tweetusername],references: [username])
+  tweetusername String
+
+  Like Like[]
+}
+
+model Like {
+  created_at DateTime @default(now())
+  bio_tweet User @relation(fields: [tweet],references: [bio])
+  tweet String @unique
+  tweeT Tweet @relation(fields: [text] , references: [tweet])
+  text String @unique
+}
+
