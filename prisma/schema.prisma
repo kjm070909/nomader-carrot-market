@@ -13,33 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model User {
-  username String @unique
-  password String @unique
-  email String? @unique
-  bio String @unique
-  created_at  DateTime @default(now())
-  updated_at  DateTime  @updatedAt
-
-  Tweet Tweet[]
-
-  Like Like[]
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  email     String?    @unique
+  password  String?
+  phone     String?    @unique
+  github_id String?    @unique
+  avatar    String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  SMSToken  SMSToken[]
 }
 
-model Tweet {
-  tweet String @unique
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user User @relation(fields: [tweetusername],references: [username])
-  tweetusername String
+model SMSToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  Like Like[]
-}
-
-model Like {
-  created_at DateTime @default(now())
-  bio_tweet User @relation(fields: [tweet],references: [bio])
-  tweet String @unique
-  tweeT Tweet @relation(fields: [text] , references: [tweet])
-  text String @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int 
 }
 
