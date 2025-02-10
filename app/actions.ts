@@ -81,7 +81,7 @@ export async function createAccount(prevState: any, formData: FormData) {
   if (!result.success) {
     return result.error.flatten();
   } else {
-    
+    return true
        // hash password
     // save the user to db
     // log the user in
